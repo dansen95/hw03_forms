@@ -1,5 +1,3 @@
-import datetime as dt
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -9,7 +7,7 @@ from .models import Group, Post
 
 def index(request):
     latest = Post.objects.all()[:11]
-    return render(request, 'index.html', {'posts': latest})
+    return render(request, 'posts/index.html', {'posts': latest})
 
 
 def group_posts(request, slug):
@@ -23,16 +21,13 @@ def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            text = form.cleaned_data['text']
-            group = form.cleaned_data['group']
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = dt.datetime.now().date()
             post.save()
 
             return redirect('index')
 
-        return render(request, 'new.html', {'form': form})
+        return render(request, 'posts/new_post.html', {'form': form})
 
     form = PostForm()
-    return render(request, 'new.html', {'form': form})
+    return render(request, 'posts/new_post.html', {'form': form})
