@@ -19,6 +19,12 @@ static/
 posts/static/
 sent_emails/
 
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover 
+
 db.sqlite3
 
 {
@@ -27,3 +33,5 @@ db.sqlite3
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true
 }
+
+
